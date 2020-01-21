@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import CardGrid from './Components/CardGrid';
+import { Grid } from 'semantic-ui-react';
+import SizeButtonGroup from './Components/SizeButtonGroup';
 
 const App = () => {
   const [data, setData] = useState({});
@@ -13,9 +16,14 @@ const App = () => {
   }, []);
 
   return (
-    <ul>
-      {products.map(product => <li key={product.sku}>{product.title}</li>)}
-    </ul>
+    <Grid padded columns={2}>
+      <Grid.Column width={4}> 
+        <SizeButtonGroup filterGroup={() => console.log('filterGroup')}/>
+      </Grid.Column>
+      <Grid.Column width={12}>
+      <CardGrid products={products} />
+      </Grid.Column>
+    </Grid>
   );
 };
 
