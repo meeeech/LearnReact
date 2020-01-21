@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Image, Divider, Header } from 'semantic-ui-react';
+import SizeButtonGroup from './SizeButtonGroup';
 
 const CardItem = ({ product, image }) => {
   return(
@@ -12,6 +13,9 @@ const CardItem = ({ product, image }) => {
         </Header>
         <Divider />
         <Card.Header content={product.currencyFormat + product.price} />
+      </Card.Content>
+      <Card.Content extra> 
+        <SizeButtonGroup filterGroup={() => console.log("size")} />
       </Card.Content>
     </Card>
   );

@@ -16,13 +16,8 @@ const App = () => {
   }, []);
 
   return (
-    <Grid padded columns={2}>
-      <Grid.Column width={4}> 
-        <SizeButtonGroup filterGroup={() => console.log('filterGroup')}/>
-      </Grid.Column>
-      <Grid.Column width={12}>
+    <Grid padded>
       <CardGrid products={products} />
-      </Grid.Column>
     </Grid>
   );
 };
