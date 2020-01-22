@@ -38,7 +38,11 @@ const CardGrid = () => {
   return (
     <Card.Group itemsPerRow={4}>
       {products.map(product => 
-        <CardItem product={product} toggleItem={toggleItem} image={`/data/products/${product.sku}_1.jpg`} />
+        <CardItem 
+          product={product} 
+          toggleItem={toggleItem} 
+          image={`/data/products/${product.sku}_1.jpg`} 
+        />
       )}
       </Card.Group>
   )

@@ -7,6 +7,7 @@ const StateProvider = ({ children }) => {
   const [data, setData] = useState({});
   const [visible, setVisible] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [cartTotal, setCartTotal] = useState({ cost: 0, items: 0 });
 
   const products = Object.values(data);
 
@@ -32,10 +33,16 @@ const StateProvider = ({ children }) => {
       }
     }
     else temp.push({ product: data[item], quantity: 1 });
+
+    const tempTotalCost = temp.length == 0 ? 
+      0 : temp.map(value => value.product.price * value.quantity).reduce((a,b) => a+b);
+
+    const tempTotalItems = temp.length == 0 ? 
+      0 : temp.map(value => value.quantity).reduce((a,b) => a+b);
     
+    setCartTotal({ cost: tempTotalCost, items: tempTotalItems });
     setVisible(true);
     setCartItems(temp);
-    console.log(cartItems)
   }
 
   const api = {
@@ -45,6 +52,7 @@ const StateProvider = ({ children }) => {
     setCartItems, 
     products, 
     toggleItem,
+    cartTotal
   };
 
   return <Provider value={api}>{children}</Provider>;

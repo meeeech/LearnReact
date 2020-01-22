@@ -13,7 +13,10 @@ const MenuCard = ({ value, refreshMenu }) => {
         <Image size='tiny' src={`/data/products/${value.product.sku}_1.jpg`} floated='left' />
         <Button 
           icon='close' 
-          onClick={() => { toggleItem(value.product.sku, 'x'); refreshMenu(); }} 
+          onClick={() => { 
+            toggleItem(value.product.sku, 'x'); 
+            refreshMenu(); 
+          }} 
           floated='right'
           size='tiny'
         />
@@ -28,13 +31,19 @@ const MenuCard = ({ value, refreshMenu }) => {
             icon='minus' 
             attached='left' 
             disabled={value.quantity===1}
-            onClick={() => { toggleItem(value.product.sku, '-'); setRefresh(!refresh);}}
+            onClick={() => { 
+              toggleItem(value.product.sku, '-'); 
+              setRefresh(!refresh);
+            }}
           />
           <Button 
             size='tiny' 
             icon='plus' 
             attached='right' 
-            onClick={() => { toggleItem(value.product.sku, '+'); setRefresh(!refresh);}}
+            onClick={() => { 
+              toggleItem(value.product.sku, '+'); 
+              setRefresh(!refresh);
+            }}
           />
         </Button.Group>
         <Header 

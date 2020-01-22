@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import CardGrid from './Components/CardGrid';
 import SidebarWrapper from './Components/SideBarWrapper';
 import { ShoppingContext } from './context';
-import { Grid, Button  } from 'semantic-ui-react';
+import { Grid, Button, Label } from 'semantic-ui-react';
 
 const App = () => {
   const shoppingContext = useContext(ShoppingContext);
-  const { setVisible } = shoppingContext;
+  const { setVisible, cartTotal } = shoppingContext;
 
   const Content = () => {
     return(
@@ -17,6 +17,8 @@ const App = () => {
           </Grid.Column>
           <Grid.Column width={1}>
             <Button 
+              color='yellow'
+              label={<Label content={cartTotal.items} />}
               icon="cart" 
               onClick={() => setVisible(true)} 
             />
