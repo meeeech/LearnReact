@@ -1,24 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import CardGrid from './Components/CardGrid';
-import { Grid } from 'semantic-ui-react';
-import SizeButtonGroup from './Components/SizeButtonGroup';
+import SidebarWrapper from './Components/SideBarWrapper';
+import { ShoppingContext } from './context';
+import { Grid, Sidebar, Menu, Icon, Button, Container } from 'semantic-ui-react';
 
 const App = () => {
-  const [data, setData] = useState({});
-  const products = Object.values(data);
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await fetch('./data/products.json');
-      const json = await response.json();
-      setData(json);
-    };
-    fetchProducts();
-  }, []);
+  const shoppingContext = useContext(ShoppingContext);
+  const { setVisible } = shoppingContext;
+
+  const Content = () => {
+    return(
+      <Grid padded>
+        <Grid.Row>
+          <Grid.Column width={15}>
+            <div />
+          </Grid.Column>
+          <Grid.Column width={1}>
+            <Button 
+              icon="cart" 
+              attached='left' 
+              onClick={() => setVisible(true)} 
+            />
+          </Grid.Column>
+        </Grid.Row> 
+        <Grid.Row>
+         <CardGrid />
+        </Grid.Row>
+      </Grid>
+    );
+  };
 
   return (
-    <Grid padded>
-      <CardGrid products={products} />
-    </Grid>
+    <SidebarWrapper content={<Content />} />
   );
 };
 
