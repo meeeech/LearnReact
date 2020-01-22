@@ -25,6 +25,7 @@ const StateProvider = ({ children }) => {
 
     if (index > -1) {
       if (action === '+') temp[index].quantity++;
+      else if (action==='x') temp.splice(index);
       else {
         if (temp[index].quantity === 1) temp.splice(index);
         else temp[index].quantity--;

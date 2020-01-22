@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Menu, Card, Sidebar, Header, Icon } from 'semantic-ui-react';
+import { Menu, Sidebar, Header, Icon, Button, Container } from 'semantic-ui-react';
 import { ShoppingContext } from '../context';
 import MenuCard from './MenuCard';
 
@@ -13,13 +13,13 @@ const SidebarWrapper = ({ content }) => {
       <Sidebar
         as={Menu}
         animation='overlay'
-        onHide={() => setVisible(false)}
         inverted
         vertical
         visible={visible}
         direction='right'
         width='very wide'
       >
+        <Button inverted icon='close' onClick={() => setVisible(false)} />
         <Menu.Item>
           <Header textAlign='center' inverted><Icon name='cart' inverted/>CART</Header>
         </Menu.Item>
@@ -29,8 +29,10 @@ const SidebarWrapper = ({ content }) => {
           );
         })}
       </Sidebar>
-      <Sidebar.Pusher dimmed={visible}>  
-        {content}
+      <Sidebar.Pusher dimmed={visible}> 
+        <Container>
+          {content}
+        </Container>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
   );

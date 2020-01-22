@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Segment, Header, Image, Divider, Button, Grid } from 'semantic-ui-react';
+import { Segment, Header, Image, Divider, Button } from 'semantic-ui-react';
 import { ShoppingContext } from '../context';
 
 const MenuCard = ({ value, refreshMenu }) => {
@@ -13,7 +13,7 @@ const MenuCard = ({ value, refreshMenu }) => {
         <Image size='tiny' src={`/data/products/${value.product.sku}_1.jpg`} floated='left' />
         <Button 
           icon='close' 
-          onClick={() => { toggleItem(value.product.sku, '-'); refreshMenu(); }} 
+          onClick={() => { toggleItem(value.product.sku, 'x'); refreshMenu(); }} 
           floated='right'
           size='tiny'
         />

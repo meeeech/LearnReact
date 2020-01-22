@@ -1,22 +1,31 @@
 import React, { useContext } from 'react';
-import { Card, Image, Divider, Header } from 'semantic-ui-react';
+import { Card, Image, Header, Button } from 'semantic-ui-react';
 import SizeButtonGroup from './SizeButtonGroup';
 import { ShoppingContext } from '../context';
 
 const CardItem = ({ product, image, toggleItem }) => {
   return(
-    <Card onClick={() => toggleItem(product.sku, '+')}>
+    <Card>
       <Image src={image} wrapped ui={false} />
       <Card.Content>
         <Header as="h4">
           {product.title} 
           <Header.Subheader content={product.description ? product.description : "No description"} />
         </Header>
-        <Divider />
         <Card.Header content={product.currencyFormat + product.price} />
       </Card.Content>
       <Card.Content extra> 
         <SizeButtonGroup filterGroup={() => console.log("size")} />
+      </Card.Content>
+      <Card.Content extra>
+        <Button 
+          size='small'
+          fluid 
+          content="ADD TO CART" 
+          icon='plus' 
+          color='yellow' 
+          onClick={() => toggleItem(product.sku, '+')}
+        />
       </Card.Content>
     </Card>
   );

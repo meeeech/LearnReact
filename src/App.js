@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import CardGrid from './Components/CardGrid';
 import SidebarWrapper from './Components/SideBarWrapper';
 import { ShoppingContext } from './context';
-import { Grid, Sidebar, Menu, Icon, Button, Container } from 'semantic-ui-react';
+import { Grid, Button  } from 'semantic-ui-react';
 
 const App = () => {
   const shoppingContext = useContext(ShoppingContext);
@@ -10,7 +10,7 @@ const App = () => {
 
   const Content = () => {
     return(
-      <Grid padded>
+      <Grid padded='vertically'>
         <Grid.Row>
           <Grid.Column width={15}>
             <div />
@@ -18,7 +18,6 @@ const App = () => {
           <Grid.Column width={1}>
             <Button 
               icon="cart" 
-              attached='left' 
               onClick={() => setVisible(true)} 
             />
           </Grid.Column>
