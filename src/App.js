@@ -60,7 +60,7 @@ const SignIn = () => (
 
 const Banner = ({ user }) => (
   !user ? <SignIn /> :
-  <Header as="h4">
+  <Header>
     {!user ? 'Welcome,  Shopper' : `Welcome, ${user.displayName}`}
     <Button 
       style={{ marginLeft: "15px" }} 

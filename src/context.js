@@ -42,12 +42,14 @@ const StateProvider = ({ children }) => {
         tempInv[sku][size]--;
       }
       else if (action==='x') {
+        console.log('INDEX', index)
         tempInv[sku][size] = tempInv[sku][size] + temp[index].quantity;
-        temp.splice(index);
+        temp.splice(index, 1);
+        //console.log(temp)
       }
       else {
         if (temp[index].quantity === 1) {
-          temp.splice(index);
+          temp.splice(index, 1);
           tempInv[sku][size]++;
         }
         else {
@@ -75,6 +77,8 @@ const StateProvider = ({ children }) => {
     setVisible(true);
 
     setInventory(tempInv);
+    console.log(temp)
+    console.log(cartItems)
     setCartItems(temp);
   }
 
