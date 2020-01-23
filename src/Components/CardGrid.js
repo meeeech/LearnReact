@@ -5,7 +5,6 @@ import { ShoppingContext } from '../context';
 const CardItem = ({ product, image }) => {
   const shoppingContext = useContext(ShoppingContext);
   const { inventory, toggleItem } = shoppingContext;
-
   const [size, setSize] = useState(null);
 
   return(
@@ -49,15 +48,17 @@ const CardItem = ({ product, image }) => {
 
 const CardGrid = () => {
   const shoppingContext = useContext(ShoppingContext);
-  const { products } = shoppingContext;
+  const { products, inventory } = shoppingContext;
 
   return (
     <Card.Group itemsPerRow={4}>
       {products.map(product => 
-        <CardItem 
-          product={product} 
-          image={`/data/products/${product.sku}_1.jpg`} 
-        />
+          inventory[product.sku] ?
+          <CardItem 
+            product={product} 
+            image={`/data/products/${product.sku}_1.jpg`} 
+          />
+        : null
       )}
       </Card.Group>
   )

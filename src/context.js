@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import db from './firebase';
 
 const ShoppingContext = createContext(null);
 const { Provider } = ShoppingContext; 
@@ -18,15 +19,15 @@ const StateProvider = ({ children }) => {
       const json = await response.json();
       setData(json);
     };
-    const fetchInventory = async () => {
-      const response = await fetch('./data/inventory.json');
-      const json = await response.json();
-      //console.log(json)
-      console.log(json)
-      setInventory(json);
-    }
     fetchProducts();
-    fetchInventory();
+  }, []);
+
+  useEffect(() => {
+    const fetchInventory = snap => {
+      if (snap.val()) setInventory(snap.val());
+    }
+    db.on('value', fetchInventory, error=> alert(error));
+    return () => { db.off('value', fetchInventory); };
   }, []);
 
   const toggleItem = (item, action, size) => {
