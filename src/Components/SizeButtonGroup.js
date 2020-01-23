@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 
-const SizeButtonGroup = ({filterGroup}) => {
+const SizeButtonGroup = ({ sku }) => {
   return (
     <div>
       {["S", "M", "L", "XL"].map(size => 

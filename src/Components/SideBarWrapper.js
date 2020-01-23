@@ -22,7 +22,7 @@ const SidebarWrapper = ({ content }) => {
         <Button inverted icon='close' onClick={() => setVisible(false)} />
         <Menu.Item>
           <Header inverted textAlign='center'>
-            <Icon name='cart' inverted textAlign='center' />CART
+            <Icon name='cart' inverted />CART
           </Header>
           <Header.Subheader content={`${cartTotal.items} ITEMS`} />
           <Divider />

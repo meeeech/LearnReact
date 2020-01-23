@@ -4,7 +4,7 @@ import { ShoppingContext } from '../context';
 
 const MenuCard = ({ value, refreshMenu }) => {
   const shoppingContext = useContext(ShoppingContext);
-  const { toggleItem } = shoppingContext;
+  const { toggleItem, inventory } = shoppingContext;
   const [refresh, setRefresh] = useState(false);
 
   return(
@@ -14,7 +14,7 @@ const MenuCard = ({ value, refreshMenu }) => {
         <Button 
           icon='close' 
           onClick={() => { 
-            toggleItem(value.product.sku, 'x'); 
+            toggleItem(value.product.sku, 'x', value.size); 
             refreshMenu(); 
           }} 
           floated='right'
@@ -22,7 +22,7 @@ const MenuCard = ({ value, refreshMenu }) => {
         />
         <Header as="h4" inverted>
           {value.product.title}
-          <Header.Subheader content={value.product.description} />
+          <Header.Subheader content={`${value.product.description} | ${value.size}`} />
           <Header.Subheader content={`Quantity: ${value.quantity}`} />
         </Header>
         <Button.Group floated='right'>
@@ -32,7 +32,7 @@ const MenuCard = ({ value, refreshMenu }) => {
             attached='left' 
             disabled={value.quantity===1}
             onClick={() => { 
-              toggleItem(value.product.sku, '-'); 
+              toggleItem(value.product.sku, '-', value.size); 
               setRefresh(!refresh);
             }}
           />
@@ -40,8 +40,9 @@ const MenuCard = ({ value, refreshMenu }) => {
             size='tiny' 
             icon='plus' 
             attached='right' 
+            disabled={inventory[value.product.sku][value.size] === 0}
             onClick={() => { 
-              toggleItem(value.product.sku, '+'); 
+              toggleItem(value.product.sku, '+', value.size); 
               setRefresh(!refresh);
             }}
           />

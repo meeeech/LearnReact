@@ -8,6 +8,7 @@ const StateProvider = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartTotal, setCartTotal] = useState({ cost: 0, items: 0 });
+  const [inventory, setInventory] = useState({})
 
   const products = Object.values(data);
 
@@ -17,32 +18,64 @@ const StateProvider = ({ children }) => {
       const json = await response.json();
       setData(json);
     };
+    const fetchInventory = async () => {
+      const response = await fetch('./data/inventory.json');
+      const json = await response.json();
+      //console.log(json)
+      console.log(json)
+      setInventory(json);
+    }
     fetchProducts();
+    fetchInventory();
   }, []);
 
-  const toggleItem = (item, action) => {
-    const index = cartItems.map(x => x.product.sku).indexOf(item)
-    const temp = cartItems 
+  const toggleItem = (item, action, size) => {
+    const index = cartItems.map(x => x.sizeSku).indexOf(`${item}_${size}`);
+    console.log(index)
+    const temp = cartItems;
+    const tempInv = inventory;
 
     if (index > -1) {
-      if (action === '+') temp[index].quantity++;
-      else if (action==='x') temp.splice(index);
+      const sku = temp[index].product.sku;
+      if (action === '+') {
+        temp[index].quantity++;
+        tempInv[sku][size]--;
+      }
+      else if (action==='x') {
+        tempInv[sku][size] = tempInv[sku][size] + temp[index].quantity;
+        temp.splice(index);
+      }
       else {
-        if (temp[index].quantity === 1) temp.splice(index);
-        else temp[index].quantity--;
+        if (temp[index].quantity === 1) {
+          temp.splice(index);
+          tempInv[sku][size]++;
+        }
+        else {
+          temp[index].quantity--;
+          tempInv[sku][size]++;
+        }
       }
     }
-    else temp.push({ product: data[item], quantity: 1 });
-
-    const tempTotalCost = temp.length == 0 ? 
+    else {
+      temp.push({ 
+        product: data[item], 
+        quantity: 1, 
+        size: size,
+        sizeSku: `${data[item].sku}_${size}` 
+      });
+      tempInv[data[item].sku][size]--;
+    }
+    const tempTotalCost = temp.length === 0 ? 
       0 : temp.map(value => value.product.price * value.quantity).reduce((a,b) => a+b);
 
-    const tempTotalItems = temp.length == 0 ? 
+    const tempTotalItems = temp.length === 0 ? 
       0 : temp.map(value => value.quantity).reduce((a,b) => a+b);
     
     setCartTotal({ cost: tempTotalCost, items: tempTotalItems });
     setVisible(true);
-    setCartItems(temp);
+    setInventory(tempInv)
+    console.log(tempInv[item])
+    setCartItems(temp)
   }
 
   const api = {
@@ -52,7 +85,8 @@ const StateProvider = ({ children }) => {
     setCartItems, 
     products, 
     toggleItem,
-    cartTotal
+    cartTotal,
+    inventory
   };
 
   return <Provider value={api}>{children}</Provider>;
