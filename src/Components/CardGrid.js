@@ -21,6 +21,7 @@ const CardItem = ({ product, image }) => {
         <div>
           {["S", "M", "L", "XL"].map(s => 
             <Button 
+              key={s}
               active={s === size}
               content={s} 
               basic
@@ -52,9 +53,10 @@ const CardGrid = () => {
 
   return (
     <Card.Group itemsPerRow={4}>
-      {products.map(product => 
+      {products.map((product, i) => 
           inventory[product.sku] ?
           <CardItem 
+            key={i}
             product={product} 
             image={`/data/products/${product.sku}_1.jpg`} 
           />

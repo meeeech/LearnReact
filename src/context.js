@@ -32,7 +32,6 @@ const StateProvider = ({ children }) => {
 
   const toggleItem = (item, action, size) => {
     const index = cartItems.map(x => x.sizeSku).indexOf(`${item}_${size}`);
-    console.log(index)
     const temp = cartItems;
     const tempInv = inventory;
 
@@ -74,9 +73,9 @@ const StateProvider = ({ children }) => {
     
     setCartTotal({ cost: tempTotalCost, items: tempTotalItems });
     setVisible(true);
-    setInventory(tempInv)
-    console.log(tempInv[item])
-    setCartItems(temp)
+
+    setInventory(tempInv);
+    setCartItems(temp);
   }
 
   const api = {

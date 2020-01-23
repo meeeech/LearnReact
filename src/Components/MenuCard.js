@@ -9,7 +9,7 @@ const MenuCard = ({ value, refreshMenu }) => {
 
   return(
     <React.Fragment>
-      <Segment inverted basic fluid>
+      <Segment inverted basic fluid='true'>
         <Image size='tiny' src={`/data/products/${value.product.sku}_1.jpg`} floated='left' />
         <Button 
           icon='close' 

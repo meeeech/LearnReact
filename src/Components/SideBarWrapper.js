@@ -31,7 +31,7 @@ const SidebarWrapper = ({ content }) => {
         </Menu.Item>
         {cartItems.map(val => {
           return (
-            <MenuCard value={val} refreshMenu={() => setRefresh(!refresh)} />
+            <MenuCard key={val.sizeSku} value={val} refreshMenu={() => setRefresh(!refresh)} />
           );
         })}
       </Sidebar>
